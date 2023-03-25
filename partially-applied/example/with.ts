@@ -10,11 +10,11 @@ const queryHas = (str: string) => (request: Request, _, next: NextFunction) => {
     return next();
 };
 
-app.get('/cat', queryHas('cat'), (_, response) => {
+app.get('/cat', queryHas('cat'), (_, response: Response) => {
     response.status(200).json({ message: 'meow' });
 });
 
-app.get('/dog', queryHas('dog'), (_, response) => {
+app.get('/dog', queryHas('dog'), (_, response: Response) => {
     response.status(200).json({ message: 'woof' });
 });
 
