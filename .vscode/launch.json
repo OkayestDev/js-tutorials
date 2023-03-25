@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach",
+            "address": "127.0.0.1",
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/var/task",
+            "port": 9240,
+            "skipFiles": ["<node_internals>/**"],
+            "restart": true
+        },
+    ]
+}
