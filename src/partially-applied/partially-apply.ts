@@ -1,8 +1,3 @@
-const typicalAdd = (x, y) => x + y;
-
-const typicalResult = typicalAdd(5, 6);
-console.log({ typicalResult });
-
 const add =
     (x: number) =>
     (y: number): number => {
