@@ -3,9 +3,9 @@ import express, { Request, Response, NextFunction } from 'express';
 const express = require('express');
 const app = express();
 
-const queryHas = (str: string) => (request: Request, _, next: NextFunction) => {
+const queryHas = (str: string) => (request: Request, response: Response, next: NextFunction) => {
     if (!request.query[str]) {
-        return next(new Error('invalid request!'));
+        return response.status(400).json({ message: 'Invalid request' });
     }
     return next();
 };

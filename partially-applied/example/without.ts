@@ -3,16 +3,16 @@ import express, { Request, Response, NextFunction } from 'express';
 const express = require('express');
 const app = express();
 
-const queryHasCat = (request: Request, _, next: NextFunction) => {
+const queryHasCat = (request: Request, response: Response, next: NextFunction) => {
     if (!request.query.cat) {
-        return next(new Error('invalid request!'));
+        return response.status(400).json({ message: 'Invalid request' });
     }
     return next();
 };
 
-const queryHasDog = (request: Request, _, next: NextFunction) => {
+const queryHasDog = (request: Request, response: Response, next: NextFunction) => {
     if (!request.query.dog) {
-        return next(new Error('invalid request!'));
+        return response.status(400).json({ message: 'Invalid request' });
     }
     return next();
 };
