@@ -1,3 +1,5 @@
+import { AnyFunction, FilteredTypeArray, Tuple } from '../types/utility-types.type';
+
 export const $ = Symbol('$');
 
 const updateArgs = (args: any[], more: any[]) => {
@@ -11,7 +13,7 @@ const updateArgs = (args: any[], more: any[]) => {
 };
 
 export const curry =
-    (fn) =>
+    <T extends AnyFunction>(fn: T): CurryPipe<ReturnType<T>, Parameters<T>> =>
     (...args) => {
         if (args.length >= fn.length && !args.includes($)) {
             return fn(...args);
@@ -22,3 +24,14 @@ export const curry =
             return curry(fn)(...newArgs);
         };
     };
+
+type CurryPipe<FnReturnType, Args extends any[]> = <
+    PassedArgs extends (Partial<Args>[number] | typeof $)[]
+>(
+    ...args: PassedArgs
+) => Exclude<PassedArgs, Args> extends never
+    ? FnReturnType
+    : CurryPipe<
+          FnReturnType,
+          Tuple<Args[number], FilteredTypeArray<PassedArgs, typeof $>['length']>
+      >;
