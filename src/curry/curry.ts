@@ -1,16 +1,15 @@
-import { AnyFunction, FilteredTypeArray, Tuple } from '../types/utility-types.type';
+import { AnyFunction } from '../types/utility-types.type';
 import { Curry } from './curry.type';
 
 export const $ = Symbol('$');
 
 const updateArgs = (args: any[], more: any[]) => {
-    const newArgs = [...args];
-    for (let i = 0; i < newArgs.length; i++) {
-        if (newArgs[i] === $) {
-            newArgs[i] = more.shift();
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] === $) {
+            args[i] = more.shift();
         }
     }
-    return newArgs;
+    return args;
 };
 
 export const curry =
