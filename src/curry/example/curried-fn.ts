@@ -1,11 +1,22 @@
 import { curry, $ } from '../curry';
 
-const concatStrings = (str1: string, str2: string) => `${str1} ${str2}`;
+const partialAdd =
+    (x: number) =>
+    (y: number): number =>
+        x + y;
 
-const curriedConcatStrings = curry(concatStrings);
+const curriedAdd = curry((x: number, y: number) => x + y);
 
-const partial = curriedConcatStrings($, 'World!');
+const resultWithPartial = partialAdd(5)(4);
 
-const helloWorld = partial('Hello,');
+const resultWithCurry = curriedAdd(5, 4);
 
-console.info(helloWorld);
+const curryPartial = curriedAdd(5);
+
+const resultWithPartialCurry = curryPartial(4);
+
+const partialWithPlaceHolder = curriedAdd($, 5);
+
+const resultWithPlaceholder = partialWithPlaceHolder(4);
+
+console.log({ resultWithPartial, resultWithCurry, resultWithPartialCurry, resultWithPlaceholder });

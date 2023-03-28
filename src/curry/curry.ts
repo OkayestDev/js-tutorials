@@ -9,7 +9,7 @@ const updateArgs = (args: any[], more: any[]) => {
             args[i] = more.shift();
         }
     }
-    return args;
+    return [...args, ...more];
 };
 
 export const curry =
