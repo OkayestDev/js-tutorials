@@ -1,19 +1,50 @@
 import { pipe } from '../pipe';
 import { curry, $ } from '../../curry/curry';
 
-const add = curry((x: number, y: number) => {
-    return x + y;
+interface IUser {
+    id: number;
+    name: string;
+    lastName: string;
+}
+
+const getUserFromDb = curry((name: string): IUser => {
+    console.info('getUserFromDb', { name });
+    return {
+        id: 123,
+        name,
+        lastName: name.split('').reverse().join(''),
+    };
 });
 
-// prettier-ignore
-const pipedAdds = pipe(
-    add,
-    add($, 7),
-    add(10, $)
-);
+const updateLastName = curry((lastName: string, user: IUser): IUser => {
+    console.info('updateLastName', { lastName, user });
+    return {
+        ...user,
+        lastName,
+    };
+});
 
-console.info(typeof pipedAdds);
+const saveToDb = curry((user: IUser): boolean => {
+    console.log('saveToDatabase', { user });
+    return true;
+});
 
-const result = pipedAdds(3, 2);
+{
+    console.log('\nNo pipe');
+    // No pipe
+    const userFromDb = getUserFromDb('John');
+    const updatedUser = updateLastName('Doe', userFromDb);
+    const isSaved = saveToDb(updatedUser);
+    console.info('No pipe', { isSaved });
+}
 
-console.info({ result });
+{
+    console.log('\nPipe');
+    // Pipe
+    const isSaved = pipe(
+        getUserFromDb,
+        updateLastName('Doe', $),
+        saveToDb
+    )('John');
+    console.info('Pipe', { isSaved });
+}

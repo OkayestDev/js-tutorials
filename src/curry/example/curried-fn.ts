@@ -17,4 +17,9 @@ const resultWithPartialCurry = curryPartial(4);
 const partialWithPlaceHolder = curriedAdd($, 5);
 const resultWithPlaceholder = partialWithPlaceHolder(4);
 
-console.log({ resultWithPartial, resultWithCurry, resultWithPartialCurry, resultWithPlaceholder });
+console.log({
+    resultWithPartial,
+    resultWithCurry,
+    resultWithPartialCurry,
+    resultWithPlaceholder,
+});
