@@ -24,9 +24,9 @@ const updateLastName = curry((lastName: string, user: IUser): IUser => {
     };
 });
 
-const saveToDb = curry((user: IUser): boolean => {
+const saveToDb = curry((user: IUser) => {
     console.log('saveToDatabase', { user });
-    return true;
+    return { isSaved: true, user };
 });
 
 {
@@ -34,17 +34,17 @@ const saveToDb = curry((user: IUser): boolean => {
     // No pipe
     const userFromDb = getUserFromDb('John');
     const updatedUser = updateLastName('Doe', userFromDb);
-    const isSaved = saveToDb(updatedUser);
-    console.info('No pipe', { isSaved });
+    const { isSaved, user } = saveToDb(updatedUser);
+    console.info('No pipe', { isSaved, user });
 }
 
 {
     console.log('\nPipe');
     // Pipe
-    const isSaved = pipe(
+    const { isSaved, user } = pipe(
         getUserFromDb,
         updateLastName('Doe', $),
         saveToDb
     )('John');
-    console.info('Pipe', { isSaved });
+    console.info('Pipe', { isSaved, user });
 }
