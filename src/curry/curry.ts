@@ -19,6 +19,7 @@ export const curry =
             return fn(...args);
         }
 
+        // use object to dynamically name curry function 
         const curried = {
             [fn.name]: (...more) => {
                 const newArgs = updateArgs(args, more);
