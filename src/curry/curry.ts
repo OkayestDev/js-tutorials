@@ -19,8 +19,12 @@ export const curry =
             return fn(...args);
         }
 
-        return (...more) => {
-            const newArgs = updateArgs(args, more);
-            return curry(fn)(...newArgs);
+        const curried = {
+            [fn.name]: (...more) => {
+                const newArgs = updateArgs(args, more);
+                return curry(fn)(...newArgs);
+            },
         };
+
+        return curried[fn.name];
     };
